@@ -8,7 +8,7 @@ const axios = require('axios');
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
-const TOKEN_PATH = homedir + "/.bitfuel/key.txt";
+const TOKEN_PATH = homedir + "/.bitfuel";
 const TOKEN_FULL_PATH = homedir + "/.bitfuel/key.txt";
 
 var cachedToken;
@@ -16,7 +16,7 @@ var getToken = () => {
 	if (cachedToken) return cachedToken;
 	var token;
 	try {
-		token = fs.readFileSync(TOKEN_PATH, 'utf8');
+		token = fs.readFileSync(TOKEN_FULL_PATH, 'utf8');
 	} catch (err) {
 		console.log(err);
 	}
@@ -49,7 +49,11 @@ function activate(context) {
 			}
 
 			try {
-				fs.writeFileSync(TOKEN_PATH, token);
+				if (!fs.existsSync(TOKEN_PATH)){
+					fs.mkdirSync(TOKEN_PATH);
+				}
+
+				fs.writeFileSync(TOKEN_FULL_PATH, token);
 				cachedToken = token;
 				vscode.window.showInformationMessage("BitFuel token saved");
 			} catch (err) {
