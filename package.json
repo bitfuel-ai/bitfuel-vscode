@@ -1,5 +1,5 @@
 {
-  "name": "bitfuel",
+	"name": "bitfuel",
 	"displayName": "BitFuel",
 	"description": "Memory bank for all your code and commands",
 	"version": "0.0.1",
@@ -10,15 +10,50 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:bitfuel.helloWorld"
+		"onCommand:bitfuel.login",
+		"onCommand:bitfuel.save",
+		"onCommand:bitfuel.get",
+		"onCommand:bitfuel.run",
+		"onCommand:bitfuel.help"
 	],
 	"main": "./extension.js",
 	"contributes": {
-		"commands": [{
-            "command": "bitfuel.helloWorld",
-            "title": "Hello World"
-
-		}]
+		"snippets": [
+			{
+				"language": "javascript",
+				"path": "./snippets/snippets.json"
+			}
+		],
+		"commands": [
+			{
+				"command": "bitfuel.login",
+				"title": "BitFuel login"
+			},
+			{
+				"command": "bitfuel.save",
+				"title": "BitFuel save"
+			},
+			{
+				"command": "bitfuel.get",
+				"title": "BitFuel get"
+			},
+			{
+				"command": "bitfuel.run",
+				"title": "BitFuel run"
+			},
+			{
+				"command": "bitfuel.help",
+				"title": "BitFuel help"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "bitfuel.get",
+				"key": "ctrl+k ctrl+k",
+				"mac": "cmd+k cmd+k",
+				"when": "editorTextFocus"
+			}
+		]
 	},
 	"scripts": {
 		"lint": "eslint .",
@@ -26,15 +61,17 @@
 		"test": "node ./test/runTest.js"
 	},
 	"devDependencies": {
-        "@types/vscode": "^1.67.0",
-        "@types/glob": "^7.2.0",
-        "@types/mocha": "^9.1.1",
-        "@types/node": "14.x",
-        "eslint": "^8.14.0",
-        "glob": "^8.0.1",
-        "mocha": "^9.2.2",
-        "typescript": "^4.6.4",
-        "@vscode/test-electron": "^2.1.3"
-    }
-
+		"@types/glob": "^7.2.0",
+		"@types/mocha": "^9.1.1",
+		"@types/node": "14.x",
+		"@types/vscode": "^1.67.0",
+		"@vscode/test-electron": "^2.1.3",
+		"eslint": "^8.14.0",
+		"glob": "^8.0.1",
+		"mocha": "^9.2.2",
+		"typescript": "^4.6.4"
+	},
+	"dependencies": {
+		"axios": "^0.27.2"
+	}
 }

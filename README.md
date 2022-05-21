@@ -1,5 +1,10 @@
 # bitfuel README
 
+## Run it
+1) open this in vscode
+2) press f5
+3) execute commands with `cmd+shift+p`
+
 This is the README for your extension "bitfuel". After writing up a brief description, we recommend including the following sections.
 
 ## Features
