@@ -85,6 +85,7 @@ function activate(context) {
 			).then(() => {
 				vscode.window.showInformationMessage("BitFuel saved " + description);
 			}).catch((err)=> {
+				//TODO add better error handling for malformed token
 				vscode.window.showErrorMessage("Couldn't save " + description + " " + err);
 			})
 		});
@@ -117,7 +118,8 @@ function activate(context) {
 				vscode.commands.executeCommand("bitfuel.write");
 				vscode.window.showInformationMessage("BitFuel got " + command);
 			}).catch((err)=> {
-				if (err == "400") {
+				//TODO add better error handling for malformed token
+				if (err == "400") {					
 					vscode.window.showErrorMessage("Please double check your token, unauthorized");	
 				}
 				vscode.window.showErrorMessage("Couldn't get " + description + " " + err);

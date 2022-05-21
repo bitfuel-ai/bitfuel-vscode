@@ -40,14 +40,13 @@
 				"title": "BitFuel help"
 			}
 		],
-		"keybindings": [
-			{
-				"command": "bitfuel.get",
-				"key": "ctrl+k ctrl+k",
-				"mac": "cmd+k cmd+k",
-				"when": "editorTextFocus"
-			}
-		]
+		"menus": {
+			"editor/context": [{
+				"when": "editorHasSelection",
+				"command": "bitfuel.save",
+				"group": "YourGroup@1"
+			}]
+		}
 	},
 	"scripts": {
 		"lint": "eslint .",
