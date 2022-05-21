@@ -135,16 +135,6 @@ function activate(context) {
 		})
 	});
 
-	let runCommand = vscode.commands.registerCommand('bitfuel.run', function () {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		var key = fs.readFileSync(homedir + "/.bitfuel/key.txt", 'utf8')
-		console.log("got key successfully", key);
-		vscode.window.showInformationMessage('Hello World from BitFuel! ' + key);
-	});
-	context.subscriptions.push(runCommand);
-
 	let helpCommand = vscode.commands.registerCommand('bitfuel.help', function () {
 		const url = `https://bitfuel.dev`;
 		vscode.env.openExternal(url);

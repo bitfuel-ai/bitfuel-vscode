@@ -32,10 +32,6 @@
 				"title": "BitFuel get"
 			},
 			{
-				"command": "bitfuel.run",
-				"title": "BitFuel run"
-			},
-			{
 				"command": "bitfuel.help",
 				"title": "BitFuel help"
 			}
