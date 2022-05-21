@@ -18,12 +18,6 @@
 	],
 	"main": "./extension.js",
 	"contributes": {
-		"snippets": [
-			{
-				"language": "javascript",
-				"path": "./snippets/snippets.json"
-			}
-		],
 		"commands": [
 			{
 				"command": "bitfuel.login",

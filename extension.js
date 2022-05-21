@@ -11,7 +11,9 @@ const axios = require('axios');
 const TOKEN_PATH = homedir + "/.bitfuel/key.txt";
 const TOKEN_FULL_PATH = homedir + "/.bitfuel/key.txt";
 
+var cachedToken;
 var getToken = () => {
+	if (cachedToken) return cachedToken;
 	var token;
 	try {
 		token = fs.readFileSync(TOKEN_PATH, 'utf8');
@@ -23,6 +25,7 @@ var getToken = () => {
 		vscode.window.showInformationMessage("We couldn't find your token\n\nIf you have one run BitFuel login\n\nIf you don't please get one at www.bitfuel.dev", {modal: true });
 		return false;
 	}
+	cachedToken = token;
 	return token;
 }
 
@@ -47,6 +50,7 @@ function activate(context) {
 
 			try {
 				fs.writeFileSync(TOKEN_PATH, token);
+				cachedToken = token;
 				vscode.window.showInformationMessage("BitFuel token saved");
 			} catch (err) {
 				vscode.window.showErrorMessage("Couldn't write token to file", err);
@@ -83,6 +87,7 @@ function activate(context) {
 	});
 	context.subscriptions.push(saveCommand);
 
+	var command;
 	let getCommand = vscode.commands.registerCommand('bitfuel.get', function () {
 		var token = getToken();
 		if (!token) return;
@@ -104,7 +109,9 @@ function activate(context) {
 			axios.get(
 				endpoint
 			).then((res) => {
-				vscode.window.showInformationMessage("BitFuel got " + res.data.command);
+				command = res.data.command;
+				vscode.commands.executeCommand("bitfuel.write");
+				vscode.window.showInformationMessage("BitFuel got " + command);
 			}).catch((err)=> {
 				if (err == "400") {
 					vscode.window.showErrorMessage("Please double check your token, unauthorized");	
@@ -115,6 +122,12 @@ function activate(context) {
 		})
 	});
 	context.subscriptions.push(getCommand);
+
+	vscode.commands.registerTextEditorCommand('bitfuel.write', (editor, edit) => {
+		editor.selections.forEach((selection, i) => {
+			edit.insert(selection.active, command);  // insert at current cursor
+		})
+	});
 
 	let runCommand = vscode.commands.registerCommand('bitfuel.run', function () {
 		// The code you place here will be executed every time your command is executed
