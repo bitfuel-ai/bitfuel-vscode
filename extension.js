@@ -109,12 +109,13 @@ function activate(context) {
 
 			description = description.trim();
 
-			var endpoint = "https://bitfuel.dev/api/recall" + "?token=" + token + "&prompt=" + description;
+			var endpoint = "https://bitfuel.dev/api/get" + "?token=" + token + "&prompt=" + description + "&size=1&page=1";
 
 			axios.get(
 				endpoint
 			).then((res) => {
-				command = res.data.command;
+				console.log(res.data);
+				command = res.data.result[0].command;
 				vscode.commands.executeCommand("bitfuel.write");
 				vscode.window.showInformationMessage("BitFuel got " + command);
 			}).catch((err)=> {
