@@ -45,6 +45,11 @@
 				"when": "editorHasSelection",
 				"command": "bitfuel.save",
 				"group": "YourGroup@1"
+			},
+			{
+				"when": "editorHasSelection",
+				"command": "bitfuel.get",
+				"group": "YourGroup@1"
 			}]
 		}
 	},

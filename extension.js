@@ -97,43 +97,54 @@ function activate(context) {
 		var token = getToken();
 		if (!token) return;
 
-		vscode.window.showInputBox({
-			placeHolder: "description",
-			prompt: "Describe your code to fetch",
-			value: ""
-		}).then((description)=> {
-			if (!description || !description.length) {
-				vscode.window.showErrorMessage('Nothing to save');
-				return;
+		// vscode.window.showInputBox({
+		// 	placeHolder: "description",
+		// 	prompt: "Describe your code to fetch",
+		// 	value: ""
+		// }).then((description)=> {
+		// 	if (!description || !description.length) {
+		// 		vscode.window.showErrorMessage('Nothing to save');
+		// 		return;
+		// 	}
+
+		const editor = vscode.window.activeTextEditor;
+		
+		const selectedText = editor?.document.getText(editor.selection);
+
+		description = selectedText.trim();
+
+
+		var endpoint = "https://bitfuel.dev/api/get" + "?token=" + token + "&prompt=" + description + "&size=1&page=1";
+
+		axios.get(
+			endpoint
+		).then((res) => {
+			console.log(res.data);
+			command = res.data.result[0].command;
+			vscode.commands.executeCommand("bitfuel.write");
+			vscode.window.showInformationMessage("BitFuel got " + command);
+		}).catch((err)=> {
+			//TODO add better error handling for malformed token
+			if (err == "400") {					
+				vscode.window.showErrorMessage("Please double check your token, unauthorized");	
 			}
+			vscode.window.showErrorMessage("Couldn't get " + description + " " + err);
+		});
 
-			description = description.trim();
-
-			var endpoint = "https://bitfuel.dev/api/get" + "?token=" + token + "&prompt=" + description + "&size=1&page=1";
-
-			axios.get(
-				endpoint
-			).then((res) => {
-				console.log(res.data);
-				command = res.data.result[0].command;
-				vscode.commands.executeCommand("bitfuel.write");
-				vscode.window.showInformationMessage("BitFuel got " + command);
-			}).catch((err)=> {
-				//TODO add better error handling for malformed token
-				if (err == "400") {					
-					vscode.window.showErrorMessage("Please double check your token, unauthorized");	
-				}
-				vscode.window.showErrorMessage("Couldn't get " + description + " " + err);
-			});
-
-		})
-	});
+	})
+	// });
 	context.subscriptions.push(getCommand);
 
 	vscode.commands.registerTextEditorCommand('bitfuel.write', (editor, edit) => {
-		editor.selections.forEach((selection, i) => {
-			edit.insert(selection.active, command);  // insert at current cursor
-		})
+		// editor.selections.forEach((selection, i) => {
+		// 	edit.insert(selection.active, command);  // insert at current cursor
+		// })
+
+		editor.edit(builder => {
+			for (const selection of editor.selections) {
+				builder.replace(selection, command);
+			}
+		});
 	});
 
 	let helpCommand = vscode.commands.registerCommand('bitfuel.help', function () {
