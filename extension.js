@@ -81,7 +81,7 @@ function activate(context) {
 			}
 
 			axios.get(
-				"https://bitfuel.dev/api/describe" + "?token=" + token + "&descript=" + description + "&command=" + selectedText
+				"https://bitfuel.dev/api/save" + "?token=" + token + "&descript=" + description + "&command=" + selectedText
 			).then(() => {
 				vscode.window.showInformationMessage("BitFuel saved " + description);
 			}).catch((err)=> {
