@@ -81,7 +81,7 @@ function activate(context) {
 			}
 
 			axios.get(
-				"https://bitfuel.dev/api/save" + "?token=" + token + "&descript=" + description + "&command=" + selectedText
+				"https://bitfuel.dev/api/save" + "?token=" + token + "&descript=" + description + "&command=" + selectedText + "&codetype=snippet"
 			).then(() => {
 				vscode.window.showInformationMessage("BitFuel saved " + description);
 			}).catch((err)=> {
@@ -109,7 +109,7 @@ function activate(context) {
 
 			description = description.trim();
 
-			var endpoint = "https://bitfuel.dev/api/get" + "?token=" + token + "&prompt=" + description + "&size=1&page=1";
+			var endpoint = "https://bitfuel.dev/api/get" + "?token=" + token + "&prompt=" + description + "&size=1&page=1" + "&codetype=snippet";
 
 			axios.get(
 				endpoint
