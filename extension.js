@@ -109,20 +109,29 @@ function activate(context) {
 
 			description = description.trim();
 
-			var endpoint = "https://bitfuel.dev/api/get" + "?token=" + token + "&prompt=" + description + "&size=1&page=1" + "&codetype=snippet";
+			var endpoint = "https://bitfuel.dev/api/get" + "?token=" + token + "&prompt=" + description + "&size=20&page=1" + "&codetype=snippet";
 
 			axios.get(
 				endpoint
 			).then((res) => {
 				console.log(res.data);
-				command = res.data.result[0].command;
-				vscode.commands.executeCommand("bitfuel.write");
-				vscode.window.showInformationMessage("BitFuel got " + command);
+				vscode.languages.registerInlineCompletionItemProvider({ pattern: '**' },
+					{
+						provideInlineCompletionItems: async (document, position) => {
+							return [{ text: "< 2) {\n\treturn 1;\n\t}" }];
+						}
+					}
+				);
+				console.log("rendered inline");
+				// command = res.data.result[0].command;
+				// vscode.commands.executeCommand("bitfuel.write");
+				// vscode.window.showInformationMessage("BitFuel got " + command);
 			}).catch((err)=> {
 				//TODO add better error handling for malformed token
 				if (err == "400") {					
 					vscode.window.showErrorMessage("Please double check your token, unauthorized");	
 				}
+				console.log(endpoint);
 				vscode.window.showErrorMessage("Couldn't get " + description + " " + err);
 			});
 
@@ -130,11 +139,11 @@ function activate(context) {
 	});
 	context.subscriptions.push(getCommand);
 
-	vscode.commands.registerTextEditorCommand('bitfuel.write', (editor, edit) => {
-		editor.selections.forEach((selection, i) => {
-			edit.insert(selection.active, command);  // insert at current cursor
-		})
-	});
+	// vscode.commands.registerTextEditorCommand('bitfuel.write', (editor, edit) => {
+	// 	editor.selections.forEach((selection, i) => {
+	// 		edit.insert(selection.active, command);  // insert at current cursor
+	// 	})
+	// });
 
 	let helpCommand = vscode.commands.registerCommand('bitfuel.help', function () {
 		const url = `https://bitfuel.dev`;

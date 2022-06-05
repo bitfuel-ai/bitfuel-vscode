@@ -1,5 +1,8 @@
 {
 	"name": "bitfuel",
+	"enabledApiProposals": [
+		"inlineCompletions"
+	],
 	"displayName": "BitFuel",
 	"description": "Memory bank for all your code and commands",
 	"version": "0.0.1",
@@ -8,7 +11,7 @@
 		"url": "git://github.com/bitfuel-ai/bitfuel-vscode.git"
 	},
 	"engines": {
-		"vscode": "^1.66.2"
+		"vscode": "^1.67.0"
 	},
 	"categories": [
 		"Other"
@@ -41,11 +44,13 @@
 			}
 		],
 		"menus": {
-			"editor/context": [{
-				"when": "editorHasSelection",
-				"command": "bitfuel.save",
-				"group": "YourGroup@1"
-			}]
+			"editor/context": [
+				{
+					"when": "editorHasSelection",
+					"command": "bitfuel.save",
+					"group": "YourGroup@1"
+				}
+			]
 		}
 	},
 	"scripts": {
@@ -65,6 +70,7 @@
 		"typescript": "^4.6.4"
 	},
 	"dependencies": {
-		"axios": "^0.27.2"
+		"axios": "^0.27.2",
+		"vscode-dts": "^0.3.3"
 	}
 }
