@@ -8,8 +8,9 @@ const axios = require('axios');
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
-const TOKEN_PATH = homedir + "/.bitfuel";
-const TOKEN_FULL_PATH = homedir + "/.bitfuel/key.txt";
+const CONFIG_PATH = homedir + "/.config/"
+const BITFUEL_PATH = homedir + "/.config/bitfuel";
+const TOKEN_FULL_PATH = homedir + "/.config/bitfuel/key.txt";
 
 var cachedToken;
 var getToken = () => {
@@ -49,8 +50,12 @@ function activate(context) {
 			}
 
 			try {
-				if (!fs.existsSync(TOKEN_PATH)){
-					fs.mkdirSync(TOKEN_PATH);
+				if (!fs.existsSync(CONFIG_PATH)){
+					fs.mkdirSync(CONFIG_PATH);
+				}
+
+				if (!fs.existsSync(BITFUEL_PATH)){
+					fs.mkdirSync(BITFUEL_PATH);
 				}
 
 				fs.writeFileSync(TOKEN_FULL_PATH, token);
