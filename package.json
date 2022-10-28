@@ -2,7 +2,7 @@
 	"name": "bitfuel",
 	"displayName": "BitFuel",
 	"description": "Memory bank for all your code and commands",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/bitfuel-ai/bitfuel-vscode.git"
@@ -41,11 +41,13 @@
 			}
 		],
 		"menus": {
-			"editor/context": [{
-				"when": "editorHasSelection",
-				"command": "bitfuel.save",
-				"group": "YourGroup@1"
-			}]
+			"editor/context": [
+				{
+					"when": "editorHasSelection",
+					"command": "bitfuel.save",
+					"group": "YourGroup@1"
+				}
+			]
 		}
 	},
 	"scripts": {
