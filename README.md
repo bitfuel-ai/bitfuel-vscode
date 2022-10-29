@@ -1,8 +1,9 @@
-# :fire: BitFuel CLI :fire:
+# 🔥 BitFuel VSCode Extension 🔥
 
 _Never look up a block of code twice_
 
-bitfuel.dev
+## Docs
+https://bitfuel.dev/docs
 
 ## Manifesto
 
@@ -14,9 +15,7 @@ BitFuel is not an alias - it matches your descriptions intelligently, so you don
 
 ## Installation
 
-```
-npm install bitfuel
-```
+[Visit the us on VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=BitFuel.bitfuel)
 
 ## Usage
 

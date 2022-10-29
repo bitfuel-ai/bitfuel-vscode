@@ -2,7 +2,7 @@
 	"name": "bitfuel",
 	"displayName": "BitFuel",
 	"description": "Memory bank to quickly save and retrieve your code snippets and commands",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"publisher": "Bitfuel",
 	"icon": "images/bitfuel_logo.png",
 	"galleyBanner":{
