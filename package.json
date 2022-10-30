@@ -1,6 +1,7 @@
 {
 	"name": "bitfuel",
 	"displayName": "BitFuel",
+	"publisher": "Bitfuel",
 	"description": "Memory bank for all your code and commands",
 	"version": "1.0.0",
 	"repository": {
